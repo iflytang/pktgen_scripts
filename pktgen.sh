@@ -2,20 +2,20 @@
 
 
 # # flow_A, used for bandwidth monitor, figure 16 (a)
-export trace=flow_A         # in Gbps, every 1s to change rate, last for 44s, loops: 10, sampling rate: 7.1%
-export run_time=time_A         # in second
+#export trace=flow_A         # in Gbps, every 1s to change rate, last for 44s, loops: 10, sampling rate: 7.1%
+#export run_time=time_A         # in second
 
 # # flow_B, used for bandwidth monitor, figure 16 (b)
 #export trace=flow_B         # in Gbps, every 1s to change rate, last for 55s, loops: 10, sampling rate: 8.2%
 #export run_time=time_B         # in second
 
-# # flow_C, used for benchmark, figure 15 (a), scenario 1: 64B, 0.672 Mpps, adjust sampling rate; OR for figure 18 (a)
+# # flow_C, used for benchmark, figure 15 (a), scenario 1: 64B, [0.336, 0.672] Gbps, adjust sampling rate
 #export trace=flow_C         # in Gbps, every 8s to change rate, last for 30*8=240s, loops: 10
 #export run_time=time_C         # in second
 
-# # flow_D, used for benchmark, figure 15 (b), scenario 2: 64B, [0.336, 0.672] Mpps, adjust port by ECMP
-#export trace=flow_D         # in Gbps, every 8s to change rate, last for 30*8=240s, loops: 10
-#export run_time=time_D         # in second
+# # flow_D, used for benchmark, figure 15 (b), scenario 2: 64B, 0.672 Gbps, adjust port by ECMP; OR for figure 18 (a)
+export trace=flow_D         # in Gbps, every 8s to change rate, last for 30*8=240s, loops: 10
+export run_time=time_D         # in second
 
 ## pktgen tcp ip and port
 export PKTGEN_IP="127.0.0.1"
@@ -28,8 +28,8 @@ export PORT_ID_1='1'
 export PERCENTRAGE_FACTOR=10     # convert Gbps to %
 
 ## pktgen configuration, change here
-export PORT_ID=${PORT_ID_1}
-export PKT_SIZE=64
+export PORT_ID=${PORT_ID_0}
+export PKT_SIZE=64             # flow_A,flow_B:1024B; flow_C,flow_D:64B
 export SRC_IP='10.0.0.1/32'    # must have prefix
 export DST_IP='10.0.0.2'       # cannot have prefix
 
@@ -64,7 +64,7 @@ echo "pktgen.set(${PORT_ID}, 'size', ${PKT_SIZE})" | socat - TCP4:${PKTGEN_IP}:$
 #echo ${PORT_ID}
 
 ## start to send packet
-#echo "pktgen.start(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
+echo "pktgen.start(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
 #sleep 1s
 
 ## auto to adjust packet-rate
