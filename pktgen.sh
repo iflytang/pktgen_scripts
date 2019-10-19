@@ -74,3 +74,6 @@ do
     sleep ${time_array[i]}s
     #sleep 1s
 done
+
+## stop to send packet
+echo "pktgen.stop(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
