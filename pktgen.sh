@@ -53,7 +53,7 @@ time_index=0
 ## read trace, unit: Gbps
 while read trace_line
 do
-    trace_array[$trace_index]=${trace_line}*10    # in percentage, 10 Gbps * percentage = real_bandwidth
+    trace_array[$trace_index]=${trace_line}*${PERCENTRAGE_FACTOR}    # in percentage, 10 Gbps * percentage = real_bandwidth
    # echo ${trace_array[$trace_index]}
     let trace_index++
 done < ${trace}
