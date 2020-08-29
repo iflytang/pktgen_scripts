@@ -9,7 +9,7 @@ function signal_handler() {
     echo "pktgen.stop(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
 }
 
-# # traffic-001, [160000, 170000] as test set. OFC 2021, pkt_size: 1024
+# # traffic-001, [160000, 170000] as test set. OFC 2021 packet layer, pkt_size: 512
 export trace=Traffic-test-001           # in Gbps, every 1s to change rate.
                                         # we repeat first second for twice, and collector choose the latter one
 export run_time=Traffic-test-001-time   # in second
@@ -42,7 +42,7 @@ export PERCENTRAGE_FACTOR=10     # convert Gbps to %
 
 ## pktgen configuration, change here
 export PORT_ID=${PORT_ID_0}
-export PKT_SIZE=1024             # flow_A,flow_B:1024B; flow_C,flow_D:64B
+export PKT_SIZE=512            # flow_A,flow_B:1024B; flow_C,flow_D:64B
 export SRC_IP='10.0.0.1/32'    # must have prefix
 export DST_IP='10.0.0.2'       # cannot have prefix
 
