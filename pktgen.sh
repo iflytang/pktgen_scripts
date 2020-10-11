@@ -10,13 +10,20 @@ function signal_handler() {
 }
 
 # # traffic-001, [160000, 170000] as test set. OFC 2021 packet layer, pkt_size: 512
-export trace=Traffic-test-001           # in Gbps, every 1s to change rate.
-                                        # we repeat first second for twice, and collector choose the latter one
-export run_time=Traffic-test-001-time   # in second
+#export trace=Traffic-test-001           # in Gbps, every 1s to change rate.
+#                                        # we repeat first second for twice, and collector choose the latter one
+#export run_time=Traffic-test-001-time   # in second
+# # traffic-001, [160000, 170000] as test set, traffic-test-001(520:1330). OFC 2021 packet layer, pkt_size: 512
+#export trace=OFC2021_packet_layer_exp_trace     # in Gbps, every 1s to change rate.
+#export run_time=OFC2021_packet_layer_exp_time   # in second
+#STOP_POINTS=812
+#export PKT_SIZE=800
 
 # # fixed packet rate, OFC 2021 packet layer, pkt_size: 1024, 8 Gbps
 export trace=OFC2021_optical_layer_exp_trace     # in Gbps, every 1s to change rate.
 export run_time=OFC2021_optical_layer_exp_time   # in second
+STOP_POINTS=2000
+export PKT_SIZE=1024
 
 # # flow_A, used for bandwidth monitor, figure 16 (a)
 #export trace=flow_A         # in Gbps, every 1s to change rate, last for 44s, loops: 10, sampling rate: 7.1%
@@ -46,7 +53,7 @@ export PERCENTRAGE_FACTOR=10     # convert Gbps to %
 
 ## pktgen configuration, change here
 export PORT_ID=${PORT_ID_0}
-export PKT_SIZE=1024            # flow_A,flow_B:1024B; flow_C,flow_D:64B
+#export PKT_SIZE=800            # flow_A,flow_B:1024B; flow_C,flow_D:64B
 export SRC_IP='10.0.0.1/32'    # must have prefix
 export DST_IP='10.0.0.2'       # cannot have prefix
 
@@ -85,7 +92,7 @@ echo "pktgen.start(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
 #sleep 1s
 
 ## auto to adjust packet-rate
-STOP_POINTS=2000
+#STOP_POINTS=2000
 for ((i=0;i<$trace_index;i++))
 do
     echo "pktgen.set(${PORT_ID},'rate',${trace_array[i]})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
