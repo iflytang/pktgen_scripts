@@ -9,6 +9,11 @@ function signal_handler() {
     echo "pktgen.stop(${PORT_ID})" | socat - TCP4:${PKTGEN_IP}:${PKTGEN_PORT}
 }
 
+export trace=ICCCN2021_exper_f2_trace     # in Gbps, every 1s to change rate.
+export run_time=ICCCN2021_exper_f1_time   # in second
+STOP_POINTS=210
+export PKT_SIZE=1024
+
 # # traffic-001, [160000, 170000] as test set. OFC 2021 packet layer, pkt_size: 512
 #export trace=Traffic-test-001           # in Gbps, every 1s to change rate.
 #                                        # we repeat first second for twice, and collector choose the latter one
@@ -20,10 +25,10 @@ function signal_handler() {
 #export PKT_SIZE=800
 
 # # fixed packet rate, OFC 2021 packet layer, pkt_size: 1024, 8 Gbps
-export trace=OFC2021_optical_layer_exp_trace     # in Gbps, every 1s to change rate.
-export run_time=OFC2021_optical_layer_exp_time   # in second
-STOP_POINTS=2000
-export PKT_SIZE=1024
+#export trace=OFC2021_optical_layer_exp_trace     # in Gbps, every 1s to change rate.
+#export run_time=OFC2021_optical_layer_exp_time   # in second
+#STOP_POINTS=2000
+#export PKT_SIZE=1024
 
 # # flow_A, used for bandwidth monitor, figure 16 (a)
 #export trace=flow_A         # in Gbps, every 1s to change rate, last for 44s, loops: 10, sampling rate: 7.1%
